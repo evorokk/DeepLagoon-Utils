@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Плазменный баллон">
+  <defs>
+    <linearGradient id="plasmaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b1046"/>
+      <stop offset="1" stop-color="#0a1226"/>
+    </linearGradient>
+    <linearGradient id="plasmaTank" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6d28d9"/>
+      <stop offset="0.45" stop-color="#d946ef"/>
+      <stop offset="1" stop-color="#4c1d95"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#plasmaBg)"/>
+  <g opacity="0.15" stroke="#f0abfc" fill="none" stroke-width="1.5">
+    <circle cx="200" cy="140" r="110"/><circle cx="200" cy="140" r="78"/>
+    <path d="M0 66h400M0 214h400"/>
+  </g>
+  <ellipse cx="200" cy="242" rx="86" ry="14" fill="#f0abfc" opacity="0.12"/>
+  <rect x="164" y="52" width="72" height="16" rx="5" fill="#9ca3af"/>
+  <rect x="150" y="66" width="100" height="172" rx="34" fill="url(#plasmaTank)"/>
+  <rect x="166" y="86" width="16" height="132" rx="8" fill="#fdf4ff" opacity="0.28"/>
+  <path d="M186 188c-16-12 12-26-2-40s18-28 2-42" fill="none" stroke="#fdf4ff" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <rect x="178" y="214" width="44" height="26" rx="6" fill="#1f2937"/>
+  <rect y="252" width="400" height="48" fill="#04121d" opacity="0.7"/>
+  <text x="200" y="283" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="#fae8ff">ПЛАЗМА</text>
+</svg>

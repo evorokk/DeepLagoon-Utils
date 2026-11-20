@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Гидропонная теплица">
+  <defs>
+    <linearGradient id="hydroBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3b2e"/>
+      <stop offset="1" stop-color="#071a26"/>
+    </linearGradient>
+    <linearGradient id="hydroLeaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#86efac"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#hydroBg)"/>
+  <g opacity="0.13" stroke="#bbf7d0" fill="none" stroke-width="1.5">
+    <circle cx="200" cy="140" r="110"/><circle cx="200" cy="140" r="78"/>
+    <path d="M0 66h400M0 214h400"/>
+  </g>
+  <rect x="76" y="206" width="248" height="28" rx="8" fill="#334155"/>
+  <rect x="76" y="206" width="248" height="8" rx="4" fill="#22d3ee" opacity="0.6"/>
+  <g fill="url(#hydroLeaf)">
+    <path d="M140 206c-30-16-34-52-6-72 16 24 18 52 6 72z"/>
+    <path d="M162 206c-6-34 14-62 42-64-2 32-18 56-42 64z"/>
+    <path d="M218 206c-26-22-22-60 10-74 12 28 8 56-10 74z"/>
+    <path d="M248 206c-2-32 20-56 48-54-6 30-24 50-48 54z"/>
+  </g>
+  <g stroke="#4ade80" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M140 204v-38M162 204v-32M218 204v-40M248 204v-30"/>
+  </g>
+  <rect y="252" width="400" height="48" fill="#04121d" opacity="0.7"/>
+  <text x="200" y="283" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" letter-spacing="3" fill="#dcfce7">ТЕПЛИЦА</text>
+</svg>
