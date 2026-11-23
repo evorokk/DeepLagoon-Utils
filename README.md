@@ -20,6 +20,34 @@ yarn install
 bun install
 ```
 
+## Подготовка данных
+
+Проект использует игровые данные SS14 (прототипы, карты, локализация). Перед генерацией данных скопируйте каталог `Resources` из билда станции/игры в корень репозитория:
+
+```text
+DeepLagoon-Utils/
+├── Resources/          # из билда станции
+│   ├── Prototypes/
+│   ├── Locale/
+│   ├── Maps/
+│   └── ...
+├── scripts/
+└── ...
+```
+
+Затем сгенерируйте JSON-данные, которые использует сайт:
+
+```bash
+# все данные сразу
+bash scripts/build-all.sh
+
+# или по отдельности
+python3 scripts/build-chem-data.py   # app/data/chem.json для /chem
+python3 scripts/build-vendo-data.py  # app/data/vendo.json для /vendo
+```
+
+> Для скриптов нужен Python 3 с пакетом `PyYAML`.
+
 ## Development Server
 
 Start the development server on `http://localhost:3000`:
