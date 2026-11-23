@@ -1,0 +1,1550 @@
+{
+  "Absinthe": {
+    "en": "absinthe",
+    "ru": "абсент"
+  },
+  "Acetone": {
+    "en": "acetone",
+    "ru": "ацетон"
+  },
+  "AcidSpit": {
+    "en": "acidspit",
+    "ru": "кислотный плевок"
+  },
+  "Ale": {
+    "en": "ale",
+    "ru": "эль"
+  },
+  "Allicin": {
+    "en": "allicin",
+    "ru": "аллицин"
+  },
+  "AlliesCocktail": {
+    "en": "allies cocktail",
+    "ru": "коктейль Союзники"
+  },
+  "Aloe": {
+    "en": "aloe",
+    "ru": "алоэ"
+  },
+  "Aloxadone": {
+    "en": "aloxadone",
+    "ru": "алоксадон"
+  },
+  "Aluminium": {
+    "en": "aluminium",
+    "ru": "алюминий"
+  },
+  "Amasec": {
+    "en": "amasec",
+    "ru": "амасек"
+  },
+  "Amatoxin": {
+    "en": "amatoxin",
+    "ru": "аматоксин"
+  },
+  "Ambuzol": {
+    "en": "ambuzol",
+    "ru": "амбузол"
+  },
+  "AmbuzolPlus": {
+    "en": "ambuzol plus",
+    "ru": "амбузол плюс"
+  },
+  "Ammonia": {
+    "en": "ammonia",
+    "ru": "аммиак"
+  },
+  "AmmoniaBlood": {
+    "en": "anaerobic blood",
+    "ru": "анаэробная кровь"
+  },
+  "Andalusia": {
+    "en": "Andalusia",
+    "ru": "Андалусия"
+  },
+  "Antifreeze": {
+    "en": "antifreeze",
+    "ru": "антифриз"
+  },
+  "JuiceApple": {
+    "en": "apple juice",
+    "ru": "яблочный сок"
+  },
+  "Arithrazine": {
+    "en": "arithrazine",
+    "ru": "аритразин"
+  },
+  "ArnoldPalmer": {
+    "en": "Arnold Palmer",
+    "ru": "Арнольд Палмер"
+  },
+  "Artifexium": {
+    "en": "artifexium",
+    "ru": "артифексиум"
+  },
+  "Artiplates": {
+    "en": "artiplates",
+    "ru": "artiplates"
+  },
+  "Ash": {
+    "en": "ash",
+    "ru": "пепел"
+  },
+  "Astrotame": {
+    "en": "Astrotame",
+    "ru": "Астротем"
+  },
+  "AtomicBomb": {
+    "en": "Atomic Bomb",
+    "ru": "Атомная Бомба"
+  },
+  "B52": {
+    "en": "B-52",
+    "ru": "Б-52"
+  },
+  "BahamaMama": {
+    "en": "Bahama Mama",
+    "ru": "Багама-Мама"
+  },
+  "BananaHonk": {
+    "en": "Banana Honk",
+    "ru": "Банана-Хонк"
+  },
+  "JuiceBanana": {
+    "en": "banana juice",
+    "ru": "банановый сок"
+  },
+  "Bananadine": {
+    "en": "bananadine",
+    "ru": "бананадин"
+  },
+  "Barefoot": {
+    "en": "barefoot",
+    "ru": "Босоногая"
+  },
+  "Barozine": {
+    "en": "barozine",
+    "ru": "барозин"
+  },
+  "BaseAlcohol": {
+    "en": "BaseAlcohol",
+    "ru": "BaseAlcohol"
+  },
+  "BaseDrink": {
+    "en": "BaseDrink",
+    "ru": "BaseDrink"
+  },
+  "BaseJuice": {
+    "en": "BaseJuice",
+    "ru": "BaseJuice"
+  },
+  "BasePyrotechnic": {
+    "en": "BasePyrotechnic",
+    "ru": "BasePyrotechnic"
+  },
+  "BaseSoda": {
+    "en": "BaseSoda",
+    "ru": "BaseSoda"
+  },
+  "BbqSauce": {
+    "en": "BBQ sauce",
+    "ru": "соус барбекю"
+  },
+  "BeepskySmash": {
+    "en": "Beepsky smash",
+    "ru": "удар Бипски"
+  },
+  "Beer": {
+    "en": "beer",
+    "ru": "пиво"
+  },
+  "Benzene": {
+    "en": "benzene",
+    "ru": "бензол"
+  },
+  "JuiceBerry": {
+    "en": "berry juice",
+    "ru": "ягодный сок"
+  },
+  "Bicaridine": {
+    "en": "bicaridine",
+    "ru": "бикаридин"
+  },
+  "BlackBlood": {
+    "en": "black blood",
+    "ru": "black blood"
+  },
+  "Blackpepper": {
+    "en": "black pepper",
+    "ru": "чёрный перец"
+  },
+  "BlackRussian": {
+    "en": "Black Russian",
+    "ru": "Чёрный Русский"
+  },
+  "Bleach": {
+    "en": "bleach",
+    "ru": "отбеливатель"
+  },
+  "Blood": {
+    "en": "blood",
+    "ru": "кровь"
+  },
+  "BloodyMary": {
+    "en": "Bloody Mary",
+    "ru": "Кровавая Мэри"
+  },
+  "BlueCuracao": {
+    "en": "blue Curaçao",
+    "ru": "голубой Кюрасао"
+  },
+  "BlueHawaiian": {
+    "en": "Blue Hawaiian",
+    "ru": "Голубые Гавайи"
+  },
+  "JuiceBluePumpkin": {
+    "en": "blue pumpkin juice",
+    "ru": "синетыквенный сок"
+  },
+  "Booger": {
+    "en": "booger",
+    "ru": "козявка"
+  },
+  "BraveBull": {
+    "en": "Brave Bull",
+    "ru": "Храбрый Бык"
+  },
+  "Bruizine": {
+    "en": "bruizine",
+    "ru": "бруизин"
+  },
+  "BudgetInsulsDrink": {
+    "en": "BudgetInsulsDrink",
+    "ru": "BudgetInsulsDrink"
+  },
+  "JuiceBungo": {
+    "en": "bungo juice",
+    "ru": "сок бунго"
+  },
+  "Bungotoxin": {
+    "en": "bungotoxin",
+    "ru": "бунготоксин"
+  },
+  "Butter": {
+    "en": "butter",
+    "ru": "сливочное масло"
+  },
+  "BuzzochloricBees": {
+    "en": "buzzochloric bees",
+    "ru": "жужжехлориновые пчёлы"
+  },
+  "CafeLatte": {
+    "en": "cafe latte",
+    "ru": "кофе латте"
+  },
+  "CapsaicinOil": {
+    "en": "Capsaicin Oil",
+    "ru": "капсаициновое масло"
+  },
+  "Carbon": {
+    "en": "carbon",
+    "ru": "углерод"
+  },
+  "CarbonDioxide": {
+    "en": "carbon dioxide",
+    "ru": "диоксид углерода"
+  },
+  "Carpetium": {
+    "en": "carpetium",
+    "ru": "ковриний"
+  },
+  "CarpoToxin": {
+    "en": "CarpoToxin",
+    "ru": "CarpoToxin"
+  },
+  "JuiceCarrot": {
+    "en": "carrot juice",
+    "ru": "морковный сок"
+  },
+  "Cellulose": {
+    "en": "cellulose fibers",
+    "ru": "целлюлозные волокна"
+  },
+  "Champagne": {
+    "en": "champagne",
+    "ru": "шампанское"
+  },
+  "ChangelingSting": {
+    "en": "Changeling Sting",
+    "ru": "Жало Метаморфа"
+  },
+  "Charcoal": {
+    "en": "charcoal",
+    "ru": "уголь"
+  },
+  "JuiceCherry": {
+    "en": "cherry juice",
+    "ru": "вишнёвый сок"
+  },
+  "ChloralHydrate": {
+    "en": "chloral hydrate",
+    "ru": "хлоральгидрат"
+  },
+  "Chlorine": {
+    "en": "chlorine",
+    "ru": "хлор"
+  },
+  "Martini": {
+    "en": "classic martini",
+    "ru": "классический мартини"
+  },
+  "ChlorineTrifluoride": {
+    "en": "chlorine trifluoride",
+    "ru": "трифторид хлора"
+  },
+  "CocoaPowder": {
+    "en": "CocoaPowder",
+    "ru": "CocoaPowder"
+  },
+  "CoconutRum": {
+    "en": "coconut rum",
+    "ru": "кокосовый ром"
+  },
+  "CoconutWater": {
+    "en": "coconut water",
+    "ru": "кокосовая вода"
+  },
+  "Coffee": {
+    "en": "coffee",
+    "ru": "кофе"
+  },
+  "CoffeeLiqueur": {
+    "en": "CoffeeLiqueur",
+    "ru": "CoffeeLiqueur"
+  },
+  "CogChamp": {
+    "en": "CogChamp",
+    "ru": "CogChamp"
+  },
+  "Cognac": {
+    "en": "cognac",
+    "ru": "коньяк"
+  },
+  "Cognizine": {
+    "en": "cognizine",
+    "ru": "когнизин"
+  },
+  "Cola": {
+    "en": "Space Cola",
+    "ru": "Спейс Кола"
+  },
+  "Egg": {
+    "en": "cooked egg",
+    "ru": "приготовленное яйцо"
+  },
+  "Copper": {
+    "en": "copper",
+    "ru": "медь"
+  },
+  "CopperBlood": {
+    "en": "CopperBlood",
+    "ru": "CopperBlood"
+  },
+  "Cornoil": {
+    "en": "corn oil",
+    "ru": "кукурузное масло"
+  },
+  "Cornmeal": {
+    "en": "cornmeal",
+    "ru": "кукурузная мука"
+  },
+  "Cosmopolitan": {
+    "en": "cosmopolitan",
+    "ru": "космополитен"
+  },
+  "Cream": {
+    "en": "cream",
+    "ru": "сливки"
+  },
+  "CreamOfCoconut": {
+    "en": "cream of coconut",
+    "ru": "кокосовые сливки"
+  },
+  "Cryanobalamin": {
+    "en": "cryanobalamin",
+    "ru": "cryanobalamin"
+  },
+  "Cryoxadone": {
+    "en": "cryoxadone",
+    "ru": "криоксадон"
+  },
+  "Cryptobiolin": {
+    "en": "cryptobiolin",
+    "ru": "криптобиолин"
+  },
+  "CubaLibre": {
+    "en": "Cuba libre",
+    "ru": "Куба либре"
+  },
+  "DeadRum": {
+    "en": "deadrum",
+    "ru": "мёртвый ром"
+  },
+  "DemonsBlood": {
+    "en": "Demon's Blood",
+    "ru": "Кровь Демона"
+  },
+  "Dermaline": {
+    "en": "dermaline",
+    "ru": "дермалин"
+  },
+  "Desoxyephedrine": {
+    "en": "desoxyephedrine",
+    "ru": "дезоксиэфедрин"
+  },
+  "DevilsKiss": {
+    "en": "Devil's Kiss",
+    "ru": "Поцелуй Дьявола"
+  },
+  "Dexalin": {
+    "en": "dexalin",
+    "ru": "дексалин"
+  },
+  "DexalinPlus": {
+    "en": "dexalin plus",
+    "ru": "дексалин плюс"
+  },
+  "Diethylamine": {
+    "en": "diethylamine",
+    "ru": "диэтиламин"
+  },
+  "Diphenhydramine": {
+    "en": "diphenhydramine",
+    "ru": "дифенгидрамин"
+  },
+  "Diphenylmethylamine": {
+    "en": "diphenylmethylamine",
+    "ru": "дифенилметиламин"
+  },
+  "Doxarubixadone": {
+    "en": "doxarubixadone",
+    "ru": "доксарубиксадон"
+  },
+  "DrGibb": {
+    "en": "Dr. Gibb",
+    "ru": "доктор Гибб"
+  },
+  "DriestMartini": {
+    "en": "driest martini",
+    "ru": "самый сухой мартини"
+  },
+  "DryRamen": {
+    "en": "dry ramen",
+    "ru": "сухой рамэн"
+  },
+  "Dylovene": {
+    "en": "dylovene",
+    "ru": "диловен"
+  },
+  "Ectoplasm": {
+    "en": "ectoplasm",
+    "ru": "эктоплазма"
+  },
+  "EggCooked": {
+    "en": "EggCooked",
+    "ru": "EggCooked"
+  },
+  "EnergyDrink": {
+    "en": "Red Bool",
+    "ru": "Ред Булеан"
+  },
+  "Ephedrine": {
+    "en": "ephedrine",
+    "ru": "эфедрин"
+  },
+  "Epinephrine": {
+    "en": "epinephrine",
+    "ru": "эпинефрин"
+  },
+  "ErikaSurprise": {
+    "en": "Erika surprise",
+    "ru": "сюрприз Эрики"
+  },
+  "Ethanol": {
+    "en": "ethanol",
+    "ru": "этанол"
+  },
+  "Ethyloxyephedrine": {
+    "en": "ethyloxyephedrine",
+    "ru": "этилоксиэфедрин"
+  },
+  "Ethylredoxrazine": {
+    "en": "ethylredoxrazine",
+    "ru": "этилредоксразин"
+  },
+  "EZNutrient": {
+    "en": "EZ nutrient",
+    "ru": "EZ nutrient"
+  },
+  "Fat": {
+    "en": "fat",
+    "ru": "жир"
+  },
+  "FerrochromicAcid": {
+    "en": "ferrochromic acid",
+    "ru": "феррохромовая кислота"
+  },
+  "Fersilicite": {
+    "en": "fersilicite",
+    "ru": "силицид железа"
+  },
+  "Fiber": {
+    "en": "fiber",
+    "ru": "волокно"
+  },
+  "Flour": {
+    "en": "flour",
+    "ru": "мука"
+  },
+  "Fluorine": {
+    "en": "fluorine",
+    "ru": "фтор"
+  },
+  "FluorosulfuricAcid": {
+    "en": "fluorosulfuric acid",
+    "ru": "фторсерная кислота"
+  },
+  "Fluorosurfactant": {
+    "en": "fluorosurfactant",
+    "ru": "фторсурфактант"
+  },
+  "FoamingAgent": {
+    "en": "foaming agent",
+    "ru": "пенообразующий агент"
+  },
+  "FourteenLoko": {
+    "en": "Fourteen Loko",
+    "ru": "Фоуртин Локо"
+  },
+  "Fresium": {
+    "en": "Fresium",
+    "ru": "фризиум"
+  },
+  "Frezon": {
+    "en": "frezon",
+    "ru": "фрезон"
+  },
+  "Frostoil": {
+    "en": "frostoil",
+    "ru": "frostoil"
+  },
+  "GastroToxin": {
+    "en": "GastroToxin",
+    "ru": "GastroToxin"
+  },
+  "Gildlager": {
+    "en": "Gildlager",
+    "ru": "Гильдлагер"
+  },
+  "Gin": {
+    "en": "gin",
+    "ru": "джин"
+  },
+  "GinTonic": {
+    "en": "gin and tonic",
+    "ru": "джин-тоник"
+  },
+  "GinFizz": {
+    "en": "gin fizz",
+    "ru": "шипучий джин"
+  },
+  "MilkGoat": {
+    "en": "goats milk",
+    "ru": "козье молоко"
+  },
+  "Gold": {
+    "en": "gold",
+    "ru": "золото"
+  },
+  "JuiceGrape": {
+    "en": "grape juice",
+    "ru": "виноградный сок"
+  },
+  "GrapeSoda": {
+    "en": "grape soda",
+    "ru": "виноградная газировка"
+  },
+  "GreenTea": {
+    "en": "green tea",
+    "ru": "зелёный чай"
+  },
+  "Grenadine": {
+    "en": "grenadine",
+    "ru": "сироп гренадин"
+  },
+  "GreyMatter": {
+    "en": "grey matter",
+    "ru": "серое вещество"
+  },
+  "Grog": {
+    "en": "grog",
+    "ru": "грог"
+  },
+  "GroundBee": {
+    "en": "ground Bee",
+    "ru": "молотые пчёлы"
+  },
+  "Haloperidol": {
+    "en": "haloperidol",
+    "ru": "галоперидол"
+  },
+  "Happiness": {
+    "en": "happiness",
+    "ru": "счастье"
+  },
+  "HeartbreakerToxin": {
+    "en": "heartbreaker toxin",
+    "ru": "токсин хартбрейкер"
+  },
+  "HippiesDelight": {
+    "en": "Hippie's Delight",
+    "ru": "Радость Хиппи"
+  },
+  "Histamine": {
+    "en": "histamine",
+    "ru": "гистамин"
+  },
+  "HolyWater": {
+    "en": "HolyWater",
+    "ru": "HolyWater"
+  },
+  "Honk": {
+    "en": "honk",
+    "ru": "хонк"
+  },
+  "Hooch": {
+    "en": "hooch",
+    "ru": "суррогат"
+  },
+  "HorseradishSauce": {
+    "en": "horseradish sauce",
+    "ru": "хрен"
+  },
+  "HotCocoa": {
+    "en": "hot cocoa",
+    "ru": "горячее какао"
+  },
+  "HotRamen": {
+    "en": "hot ramen",
+    "ru": "горячий рамэн"
+  },
+  "Hotsauce": {
+    "en": "hotsauce",
+    "ru": "острый соус"
+  },
+  "Hydrogen": {
+    "en": "hydrogen",
+    "ru": "водород"
+  },
+  "Hydroxide": {
+    "en": "hydroxide",
+    "ru": "гидроксид"
+  },
+  "Stimulants": {
+    "en": "hyperzine",
+    "ru": "гиперзин"
+  },
+  "Hyronalin": {
+    "en": "hyronalin",
+    "ru": "хироналин"
+  },
+  "Ice": {
+    "en": "ice",
+    "ru": "лёд"
+  },
+  "IceCream": {
+    "en": "ice cream",
+    "ru": "мороженое"
+  },
+  "IcedBeer": {
+    "en": "iced beer",
+    "ru": "пиво со льдом"
+  },
+  "IcedCoffee": {
+    "en": "iced coffee",
+    "ru": "айс-кофе"
+  },
+  "IcedGreenTea": {
+    "en": "iced green tea",
+    "ru": "зелёный чай со льдом"
+  },
+  "IcedTea": {
+    "en": "iced tea",
+    "ru": "чай со льдом"
+  },
+  "Ichor": {
+    "en": "ichor",
+    "ru": "ихор"
+  },
+  "Impedrezene": {
+    "en": "impedrezene",
+    "ru": "импедризин"
+  },
+  "Inaprovaline": {
+    "en": "inaprovaline",
+    "ru": "инапровалин"
+  },
+  "InsectBlood": {
+    "en": "insect blood",
+    "ru": "кровь насекомого"
+  },
+  "Insuzine": {
+    "en": "insuzine",
+    "ru": "инсузин"
+  },
+  "Iodine": {
+    "en": "iodine",
+    "ru": "йод"
+  },
+  "IPCCoolant": {
+    "en": "IPCCoolant",
+    "ru": "IPCCoolant"
+  },
+  "Ipecac": {
+    "en": "ipecac",
+    "ru": "ипекак"
+  },
+  "IrishBool": {
+    "en": "Irish bool",
+    "ru": "Ирландский булеан"
+  },
+  "IrishCarBomb": {
+    "en": "irish car bomb",
+    "ru": "irish car bomb"
+  },
+  "IrishCoffee": {
+    "en": "Irish coffee",
+    "ru": "ирландский кофе"
+  },
+  "IrishCream": {
+    "en": "Irish cream",
+    "ru": "Ирландские сливки"
+  },
+  "Iron": {
+    "en": "iron",
+    "ru": "железо"
+  },
+  "JuiceThatMakesYouHew": {
+    "en": "JuiceThatMakesYouHew",
+    "ru": "JuiceThatMakesYouHew"
+  },
+  "JuiceThatMakesYouWeh": {
+    "en": "JuiceThatMakesYouWeh",
+    "ru": "JuiceThatMakesYouWeh"
+  },
+  "Kelotane": {
+    "en": "kelotane",
+    "ru": "келотан"
+  },
+  "Ketchunaise": {
+    "en": "ketchunaise",
+    "ru": "кетчунез"
+  },
+  "Ketchup": {
+    "en": "ketchup",
+    "ru": "кетчуп"
+  },
+  "KiraSpecial": {
+    "en": "Kira special",
+    "ru": "Кира спешл"
+  },
+  "Lacerinol": {
+    "en": "lacerinol",
+    "ru": "лацеринол"
+  },
+  "LaughinSyrup": {
+    "en": "laughin' syrup",
+    "ru": "смешной сироп"
+  },
+  "Laughter": {
+    "en": "laughter",
+    "ru": "смех"
+  },
+  "Lead": {
+    "en": "lead",
+    "ru": "свинец"
+  },
+  "Left4Zed": {
+    "en": "left-4-zed",
+    "ru": "лефт-4-зед"
+  },
+  "JuiceLemon": {
+    "en": "lemon juice",
+    "ru": "лимонный сок"
+  },
+  "LemonLime": {
+    "en": "Smite",
+    "ru": "Смайт"
+  },
+  "LemonLimeCranberry": {
+    "en": "Smite Cranberry",
+    "ru": "Клюквенный Смайт"
+  },
+  "Lemonade": {
+    "en": "lemonade",
+    "ru": "лимонад"
+  },
+  "Leporazine": {
+    "en": "leporazine",
+    "ru": "лепоразин"
+  },
+  "Lexorin": {
+    "en": "lexorin",
+    "ru": "лексорин"
+  },
+  "Licoxide": {
+    "en": "licoxide",
+    "ru": "ликоксид"
+  },
+  "LiftLoversSpecial": {
+    "en": "LiftLoversSpecial",
+    "ru": "LiftLoversSpecial"
+  },
+  "JuiceLime": {
+    "en": "lime juice",
+    "ru": "лаймовый сок"
+  },
+  "Lipolicide": {
+    "en": "lipolicide",
+    "ru": "липолицид"
+  },
+  "Lipozine": {
+    "en": "lipozine",
+    "ru": "липозин"
+  },
+  "Lithium": {
+    "en": "lithium",
+    "ru": "литий"
+  },
+  "LongIslandIcedTea": {
+    "en": "Long Island iced tea",
+    "ru": "Лонг-Айленд айс ти"
+  },
+  "LotophagoiOil": {
+    "en": "lotophagoi oil",
+    "ru": "масло лотофагов"
+  },
+  "Manhattan": {
+    "en": "Manhattan",
+    "ru": "Манхэттен"
+  },
+  "ManhattanProject": {
+    "en": "Manhattan Project",
+    "ru": "Манхэттенский Проект"
+  },
+  "ManlyDorf": {
+    "en": "Manly Dorf",
+    "ru": "Мужественный Дворф"
+  },
+  "Mannitol": {
+    "en": "mannitol",
+    "ru": "маннитол"
+  },
+  "Margarita": {
+    "en": "margarita",
+    "ru": "маргарита"
+  },
+  "Mayo": {
+    "en": "mayonnaise",
+    "ru": "майонез"
+  },
+  "Mead": {
+    "en": "mead",
+    "ru": "медовуха"
+  },
+  "Mechanotoxin": {
+    "en": "mechanotoxin",
+    "ru": "механотоксин"
+  },
+  "MelonLiquor": {
+    "en": "melon liquor",
+    "ru": "арбузный ликёр"
+  },
+  "Mercury": {
+    "en": "mercury",
+    "ru": "ртуть"
+  },
+  "Milk": {
+    "en": "milk",
+    "ru": "молоко"
+  },
+  "MindbreakerToxin": {
+    "en": "mindbreaker toxin",
+    "ru": "токсин майндбрейкер"
+  },
+  "Mojito": {
+    "en": "Mojito",
+    "ru": "Мохито"
+  },
+  "Mold": {
+    "en": "mold",
+    "ru": "плесень"
+  },
+  "Moonshine": {
+    "en": "moonshine",
+    "ru": "самогон"
+  },
+  "Mopwata": {
+    "en": "mopwata",
+    "ru": "швабода"
+  },
+  "Morphine": {
+    "en": "morphine",
+    "ru": "morphine"
+  },
+  "Mustard": {
+    "en": "mustard",
+    "ru": "горчица"
+  },
+  "MuteToxin": {
+    "en": "mute toxin",
+    "ru": "токсин немоты"
+  },
+  "Napalm": {
+    "en": "napalm",
+    "ru": "напалм"
+  },
+  "Necrosol": {
+    "en": "necrosol",
+    "ru": "некрозол"
+  },
+  "NTCahors": {
+    "en": "NeoTheology Cahors Wine",
+    "ru": "NeoTheology Cahors Wine"
+  },
+  "Neurotoxin": {
+    "en": "neurotoxin",
+    "ru": "нейротоксин"
+  },
+  "Nicotine": {
+    "en": "nicotine",
+    "ru": "никотин"
+  },
+  "Nitrogen": {
+    "en": "nitrogen",
+    "ru": "азот"
+  },
+  "NitrousOxide": {
+    "en": "nitrous oxide",
+    "ru": "оксид азота"
+  },
+  "Nocturine": {
+    "en": "nocturine",
+    "ru": "ноктюрин"
+  },
+  "NorepinephricAcid": {
+    "en": "norepinephric acid",
+    "ru": "норэпинефриновая кислота"
+  },
+  "Nothing": {
+    "en": "nothing",
+    "ru": "ничего"
+  },
+  "NuclearCola": {
+    "en": "nuclear cola",
+    "ru": "ядерная кола"
+  },
+  "Nutriment": {
+    "en": "nutriment",
+    "ru": "питательные вещества"
+  },
+  "MilkOat": {
+    "en": "oat milk",
+    "ru": "овсяное молоко"
+  },
+  "Oats": {
+    "en": "oats",
+    "ru": "овёс"
+  },
+  "Oculine": {
+    "en": "oculine",
+    "ru": "окулин"
+  },
+  "Oil": {
+    "en": "oil",
+    "ru": "масло"
+  },
+  "OilOlive": {
+    "en": "olive oil",
+    "ru": "оливковое масло"
+  },
+  "Omnizine": {
+    "en": "omnizine",
+    "ru": "омнизин"
+  },
+  "Opporozidone": {
+    "en": "opporozidone",
+    "ru": "оппорозидон"
+  },
+  "JuiceOrange": {
+    "en": "orange juice",
+    "ru": "апельсиновый сок"
+  },
+  "OusianaDust": {
+    "en": "ousiana dust",
+    "ru": "усианская пыль"
+  },
+  "Oxygen": {
+    "en": "oxygen",
+    "ru": "кислород"
+  },
+  "Painkiller": {
+    "en": "painkiller",
+    "ru": "болеутоляющее"
+  },
+  "GargleBlaster": {
+    "en": "Pan-Galactic Gargle Blaster",
+    "ru": "пангалактический грызлодёр"
+  },
+  "Patron": {
+    "en": "Patrón",
+    "ru": "Покровитель"
+  },
+  "Pax": {
+    "en": "pax",
+    "ru": "пакс"
+  },
+  "PestKiller": {
+    "en": "pest killer",
+    "ru": "пестициды"
+  },
+  "Phalanximine": {
+    "en": "phalanximine",
+    "ru": "фалангимин"
+  },
+  "Phenol": {
+    "en": "phenol",
+    "ru": "фенол"
+  },
+  "Phlogiston": {
+    "en": "phlogiston",
+    "ru": "флогистон"
+  },
+  "Phosphorus": {
+    "en": "phosphorus",
+    "ru": "фосфор"
+  },
+  "Pilk": {
+    "en": "pilk",
+    "ru": "пилк"
+  },
+  "JuicePineapple": {
+    "en": "pineapple juice",
+    "ru": "ананасовый сок"
+  },
+  "PinaColada": {
+    "en": "Piña Colada",
+    "ru": "Пина Колада"
+  },
+  "PlantBGone": {
+    "en": "plant-B-gone",
+    "ru": "сорнякоубийца"
+  },
+  "Plasma": {
+    "en": "plasma",
+    "ru": "плазма"
+  },
+  "JuiceBerryPoison": {
+    "en": "poison berry juice",
+    "ru": "ядовитый ягодный сок"
+  },
+  "PoisonWine": {
+    "en": "poison wine",
+    "ru": "ядовитое вино"
+  },
+  "PolypyryliumOligomers": {
+    "en": "polypyrylium oligomers",
+    "ru": "олигомеры полипирилия"
+  },
+  "PolytrinicAcid": {
+    "en": "polytrinic acid",
+    "ru": "политриновая кислота"
+  },
+  "Posca": {
+    "en": "posca",
+    "ru": "поска"
+  },
+  "Potassium": {
+    "en": "potassium",
+    "ru": "калий"
+  },
+  "PotassiumIodide": {
+    "en": "potassium iodide",
+    "ru": "иодид калия"
+  },
+  "JuicePotato": {
+    "en": "potato juice",
+    "ru": "картофельный сок"
+  },
+  "Protein": {
+    "en": "protein",
+    "ru": "протеины"
+  },
+  "Psicodine": {
+    "en": "psicodine",
+    "ru": "псикодин"
+  },
+  "PsionicRegenerationEssence": {
+    "en": "PsionicRegenerationEssence",
+    "ru": "PsionicRegenerationEssence"
+  },
+  "PulpedBananaPeel": {
+    "en": "pulped banana peel",
+    "ru": "толчёная банановая кожура"
+  },
+  "PumpkinFlesh": {
+    "en": "pumpkin flesh",
+    "ru": "мякоть тыквы"
+  },
+  "Puncturase": {
+    "en": "puncturase",
+    "ru": "пунктураз"
+  },
+  "PwrGame": {
+    "en": "PWR Game",
+    "ru": "ПВР Гейм"
+  },
+  "Pyrazine": {
+    "en": "pyrazine",
+    "ru": "пиразин"
+  },
+  "Radium": {
+    "en": "radium",
+    "ru": "радий"
+  },
+  "Razorium": {
+    "en": "razorium",
+    "ru": "бритвиум"
+  },
+  "RedMead": {
+    "en": "red mead",
+    "ru": "красная медовуха"
+  },
+  "Rewriter": {
+    "en": "Rewriter",
+    "ru": "Переписчик"
+  },
+  "Rice": {
+    "en": "rice",
+    "ru": "рис"
+  },
+  "RobustHarvest": {
+    "en": "robust harvest",
+    "ru": "робаст харвест"
+  },
+  "Romerol": {
+    "en": "romerol",
+    "ru": "ромерол"
+  },
+  "RootBeer": {
+    "en": "root beer",
+    "ru": "рутбир"
+  },
+  "RootBeerFloat": {
+    "en": "root beer float",
+    "ru": "рутбир с мороженым"
+  },
+  "Rororium": {
+    "en": "rororium",
+    "ru": "ророриум"
+  },
+  "RoyRogers": {
+    "en": "Roy Rogers",
+    "ru": "Рой Роджерс"
+  },
+  "Rubberneck": {
+    "en": "rubberneck",
+    "ru": "раббернек"
+  },
+  "Rum": {
+    "en": "rum",
+    "ru": "ром"
+  },
+  "Saline": {
+    "en": "saline",
+    "ru": "физраствор"
+  },
+  "Sap": {
+    "en": "sap",
+    "ru": "древесный сок"
+  },
+  "Saxoite": {
+    "en": "saxoite",
+    "ru": "саксонит"
+  },
+  "Sbiten": {
+    "en": "sbiten",
+    "ru": "сбитень"
+  },
+  "ScrewdriverCocktail": {
+    "en": "screwdriver",
+    "ru": "отвёртка"
+  },
+  "Sedin": {
+    "en": "sedin",
+    "ru": "семин"
+  },
+  "ShamblersJuice": {
+    "en": "Shambler's Juice",
+    "ru": "сок Shambler"
+  },
+  "ShirleyTemple": {
+    "en": "Shirley Temple",
+    "ru": "Ширли Темпл"
+  },
+  "Siderlac": {
+    "en": "siderlac",
+    "ru": "сидерлак"
+  },
+  "Sigynate": {
+    "en": "sigynate",
+    "ru": "сигинат"
+  },
+  "Silencer": {
+    "en": "silencer",
+    "ru": "глушитель"
+  },
+  "Silicon": {
+    "en": "silicon",
+    "ru": "кремний"
+  },
+  "Silver": {
+    "en": "silver",
+    "ru": "серебро"
+  },
+  "Singulo": {
+    "en": "singulo",
+    "ru": "сингуло"
+  },
+  "Slime": {
+    "en": "slime",
+    "ru": "слизь"
+  },
+  "SnowWhite": {
+    "en": "Snow White",
+    "ru": "Белый Снег"
+  },
+  "SoapReagent": {
+    "en": "SoapReagent",
+    "ru": "SoapReagent"
+  },
+  "SodaWater": {
+    "en": "soda water",
+    "ru": "газированная вода"
+  },
+  "Sodium": {
+    "en": "sodium",
+    "ru": "натрий"
+  },
+  "SodiumCarbonate": {
+    "en": "sodium carbonate",
+    "ru": "карбонат натрия"
+  },
+  "SodiumHydroxide": {
+    "en": "sodium hydroxide",
+    "ru": "гидроксид натрия"
+  },
+  "SodiumPolyacrylate": {
+    "en": "sodium polyacrylate",
+    "ru": "полиакрилат натрия"
+  },
+  "SolDry": {
+    "en": "Sol Dry",
+    "ru": "Сол Драй"
+  },
+  "SoulbreakerToxin": {
+    "en": "soulbreaker toxin",
+    "ru": "токсин разрушения души"
+  },
+  "SoyLatte": {
+    "en": "soy latte",
+    "ru": "соевый латте"
+  },
+  "MilkSoy": {
+    "en": "soy milk",
+    "ru": "соевое молоко"
+  },
+  "Soysauce": {
+    "en": "soy sauce",
+    "ru": "соевый соус"
+  },
+  "SpaceCleaner": {
+    "en": "space cleaner",
+    "ru": "космический очиститель"
+  },
+  "SpaceGlue": {
+    "en": "space glue",
+    "ru": "космический клей"
+  },
+  "SpaceLube": {
+    "en": "space lube",
+    "ru": "космическая смазка"
+  },
+  "SpaceDrugs": {
+    "en": "space mirage",
+    "ru": "космический мираж"
+  },
+  "SpaceMountainWind": {
+    "en": "Space Solar Wind",
+    "ru": "Спейс Солар Вайнд"
+  },
+  "SpaceUp": {
+    "en": "Space-Up",
+    "ru": "Спейс-Ап"
+  },
+  "MilkSpoiled": {
+    "en": "spoiled milk",
+    "ru": "прогорклое молоко"
+  },
+  "Starkist": {
+    "en": "Starkist",
+    "ru": "Старкист"
+  },
+  "Stellibinin": {
+    "en": "stellibinin",
+    "ru": "стеллибинин"
+  },
+  "Sugar": {
+    "en": "sugar",
+    "ru": "сахар"
+  },
+  "SuiDream": {
+    "en": "sui dream",
+    "ru": "сон Сью"
+  },
+  "Sulfur": {
+    "en": "sulfur",
+    "ru": "сера"
+  },
+  "SulfuricAcid": {
+    "en": "sulfuric acid",
+    "ru": "серная кислота"
+  },
+  "Synaptizine": {
+    "en": "synaptizine",
+    "ru": "синаптизин"
+  },
+  "SyndicateBomb": {
+    "en": "syndicate bomb",
+    "ru": "бомба Синдиката"
+  },
+  "Syrup": {
+    "en": "syrup",
+    "ru": "сироп"
+  },
+  "TableSalt": {
+    "en": "table salt",
+    "ru": "столовая соль"
+  },
+  "Tazinide": {
+    "en": "tazinide",
+    "ru": "тазинид"
+  },
+  "Tea": {
+    "en": "black tea",
+    "ru": "чай"
+  },
+  "TeaPowder": {
+    "en": "tea powder",
+    "ru": "порошковый чай"
+  },
+  "TearGas": {
+    "en": "tear gas",
+    "ru": "слезоточивый газ"
+  },
+  "Tequila": {
+    "en": "tequila",
+    "ru": "текила"
+  },
+  "TequilaSunrise": {
+    "en": "tequila sunrise",
+    "ru": "текила санрайз"
+  },
+  "THC": {
+    "en": "THC",
+    "ru": "ТГК"
+  },
+  "DoctorsDelight": {
+    "en": "The Doctor's Delight",
+    "ru": "Радость Доктора"
+  },
+  "TheMartinez": {
+    "en": "The Martinez",
+    "ru": "Мартинес"
+  },
+  "Theobromine": {
+    "en": "theobromine",
+    "ru": "теобромин"
+  },
+  "Thermite": {
+    "en": "thermite",
+    "ru": "термит"
+  },
+  "ThreeMileIsland": {
+    "en": "Three Mile Island iced tea",
+    "ru": "чай со льдом Три-Майл-Айленд"
+  },
+  "JuiceTomato": {
+    "en": "tomato juice",
+    "ru": "томатный сок"
+  },
+  "TonicWater": {
+    "en": "tonic water",
+    "ru": "тоник"
+  },
+  "Toxin": {
+    "en": "toxin",
+    "ru": "токсин"
+  },
+  "ToxinsSpecial": {
+    "en": "toxins special",
+    "ru": "токсин спешл"
+  },
+  "TranexamicAcid": {
+    "en": "tranexamic acid",
+    "ru": "транексамовая кислота"
+  },
+  "Tricordrazine": {
+    "en": "tricordrazine",
+    "ru": "трикордразин"
+  },
+  "Tritium": {
+    "en": "tritium",
+    "ru": "тритий"
+  },
+  "Ultravasculine": {
+    "en": "ultravasculine",
+    "ru": "ультраваскулин"
+  },
+  "UncookedAnimalProteins": {
+    "en": "uncooked animal proteins",
+    "ru": "непрожаренные животные протеины"
+  },
+  "Enzyme": {
+    "en": "universal enzyme",
+    "ru": "универсальный фермент"
+  },
+  "UnstableMutagen": {
+    "en": "unstable mutagen",
+    "ru": "нестабильный мутаген"
+  },
+  "Uranium": {
+    "en": "uranium",
+    "ru": "уран"
+  },
+  "VentCrud": {
+    "en": "vent crud",
+    "ru": "вентиляционная грязь"
+  },
+  "Vermouth": {
+    "en": "vermouth",
+    "ru": "вермут"
+  },
+  "Vestine": {
+    "en": "vestine",
+    "ru": "вестин"
+  },
+  "Vinaigrette": {
+    "en": "vinaigrette",
+    "ru": "винегретная заправка"
+  },
+  "Vinegar": {
+    "en": "vinegar",
+    "ru": "уксус"
+  },
+  "Vitamin": {
+    "en": "vitamin",
+    "ru": "витамины"
+  },
+  "Vodka": {
+    "en": "vodka",
+    "ru": "водка"
+  },
+  "VodkaMartini": {
+    "en": "vodka martini",
+    "ru": "водка-мартини"
+  },
+  "VodkaRedBool": {
+    "en": "vodka red bool",
+    "ru": "водка-ред булеан"
+  },
+  "VodkaTonic": {
+    "en": "vodka tonic",
+    "ru": "водка-тоник"
+  },
+  "Vomit": {
+    "en": "vomit",
+    "ru": "рвота"
+  },
+  "Water": {
+    "en": "water",
+    "ru": "вода"
+  },
+  "JuiceWatermelon": {
+    "en": "watermelon juice",
+    "ru": "арбузный сок"
+  },
+  "WatermelonWakeup": {
+    "en": "watermelon wakeup",
+    "ru": "арбузное пробуждение"
+  },
+  "WeedKiller": {
+    "en": "weed killer",
+    "ru": "гербициды"
+  },
+  "WeldingFuel": {
+    "en": "welding fuel",
+    "ru": "сварочное топливо"
+  },
+  "Whiskey": {
+    "en": "whiskey",
+    "ru": "виски"
+  },
+  "WhiskeyCola": {
+    "en": "whiskey cola",
+    "ru": "виски-кола"
+  },
+  "WhiskeySoda": {
+    "en": "whiskey soda",
+    "ru": "виски-содовая"
+  },
+  "WhiteGilgamesh": {
+    "en": "White Gilgamesh",
+    "ru": "Белый Гильгамеш"
+  },
+  "WhiteRussian": {
+    "en": "White Russian",
+    "ru": "Белый Русский"
+  },
+  "Wine": {
+    "en": "wine",
+    "ru": "вино"
+  },
+  "XenoBasher": {
+    "en": "Xeno Basher",
+    "ru": "Ксенодав"
+  },
+  "Zinc": {
+    "en": "zinc",
+    "ru": "цинк"
+  },
+  "ZombieBlood": {
+    "en": "zombie blood",
+    "ru": "кровь зомби"
+  },
+  "ZombieCocktail": {
+    "en": "ZombieCocktail",
+    "ru": "ZombieCocktail"
+  }
+}
