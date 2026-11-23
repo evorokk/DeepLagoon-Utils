@@ -8,7 +8,6 @@
         <li><NuxtLink to="/" active-class="bg-base-200 font-semibold">Главная</NuxtLink></li>
         <li><NuxtLink to="/chem" active-class="bg-base-200 font-semibold">chem</NuxtLink></li>
         <li><NuxtLink to="/vendo" active-class="bg-base-200 font-semibold">vendo</NuxtLink></li>
-        <li><NuxtLink to="/search" active-class="bg-base-200 font-semibold">Поиск</NuxtLink></li>
       </ul>
     </div>
   </div>
