@@ -398,7 +398,7 @@ watch(cart, (val) => {
                   <tr>
                     <th>Шаттл</th>
                     <th class="text-right">Покупка</th>
-                    <th class="text-right">Возврат 85%</th>
+                    <th class="text-right">Возврат {{ Math.round(SELL_RATE * 100) }}%</th>
                     <th class="text-right">После скрутки</th>
                     <th class="text-right">Потеря</th>
                     <th class="text-right">Чистые</th>
@@ -434,7 +434,7 @@ watch(cart, (val) => {
             </div>
 
             <p class="text-[11px] opacity-50">
-              Возврат считается как <code>floor(оценка_шаттла × {{ SELL_RATE }})</code>. Оценка — приближение по StaticPrice сущностей на карте; налоги консоли и особые правила не учитываются. «Чистые затраты» = покупка − возврат после скрутки.
+              Возврат считается как <code>floor(оценка_шаттла × {{ SELL_RATE }})</code> — как в игре (базовая ставка верфи, без налогов консоли). Оценка считается по игровой формуле PricingSystem (StaticPrice/Material/Stack/Solution), для машин без прямой цены — по составу платы (MachineBoard). «Чистые затраты» = покупка − возврат после скрутки.
             </p>
           </div>
         </div>
