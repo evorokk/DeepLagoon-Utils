@@ -1,43 +1,27 @@
 # AGENTS.md
 
 ## Проект
-- Вики DeepGoon (SS14 DeepLagoon) — сайт на Nuxt 4 + Vue 3.
-- Менеджер пакетов: Bun (`bun.lock` закоммичен). Используйте `bun install` / `bun run <script>`.
+- DeepGoon wiki (SS14 DeepLagoon): Nuxt 4 + Vue 3. Пакетный менеджер: Bun (`bun.lock`) — `bun install` / `bun run <script>`.
 
 ## Команды
-- `bun install` — установка зависимостей (запускает `postinstall` → `nuxt prepare`).
-- `bun run dev` — сервер разработки (по умолчанию Nuxt: `http://localhost:3000`).
-- `bun run build` — production-сборка.
-- `bun run generate` — статическая генерация.
-- `bun run preview` — предпросмотр production-сборки.
-- `bun run postinstall` (или `nuxt prepare`) — пересоздание tsconfig/типов в `.nuxt/`; требуется после чистой установки или если `.nuxt/` отсутствует (корневой `tsconfig.json` ссылается только на `.nuxt/tsconfig.*.json`).
-- В этом репозитории не настроены скрипты lint/test/typecheck и CI-workflow.
+- `bun install` (в т.ч. `postinstall` → `nuxt prepare`)
+- `bun run dev` / `build` / `generate` / `preview`
+- `nuxt prepare` при чистой установке/отсутствии `.nuxt` (корневой `tsconfig` ссылается на `.nuxt/tsconfig.*.json`)
+- Линт/тест/typecheck/CI не настроены.
 
-## Архитектура и связи
-- Корень исходников Nuxt 4 — `app/` (а не корень репозитория): оболочка/лейаут в `app/app.vue`, маршруты в `app/pages/*.vue`, общие UI-компоненты в `app/components/*.vue`, глобальные стили в `app/assets/app.css`.
-- Чтобы добавить страницу, создайте `app/pages/<name>.vue`; верхняя навигация жёстко задана в `app/components/TopBar.vue` — обновляйте ссылки меню при добавлении/удалении основных страниц.
-- Статические/сгенерированные данные приложения лежат в `app/data/` (например, JSON для химии и поиска). Вспомогательные скрипты — в `scripts/` (например, `scripts/build-chem-data.py` собирает данные для `/chem`).
-- Директория `server/` существует, но сейчас не содержит маршрутов/middleware; `public/` хранит статические ассеты (`favicon.ico`, `robots.txt`).
+## Архитектура (Nuxt 4, root = `app/`)
+- `app/app.vue` — оболочка/лейаут; маршруты: `app/pages/*.vue`; UI: `app/components/*.vue`; стили: `app/assets/app.css`.
+- Новая страница: `app/pages/<name>.vue`. Меню навигации задаётся в `app/components/TopBar.vue` — при добавлении/удалении основных страниц обновлять ссылки.
+- Данные/скрипты: `app/data/` (JSON для `/chem`, поиска и т.п.), вспомогательные скрипты в `scripts/` (пример: `scripts/build-chem-data.py`).
+- `server/` пустой (без маршрутов/middleware); `public/` — статика сайта (`favicon.ico`, `robots.txt`).
 
 ## Стилизация
-- Tailwind CSS v4 подключён через `@tailwindcss/vite` в `nuxt.config.ts` (нет `tailwind.config.*` и отдельной PostCSS-конфигурации Tailwind). Точка входа глобальных стилей — `app/assets/app.css` с `@import "tailwindcss";` и `@plugin "daisyui";`.
-- daisyUI v5 — слой UI-компонентов (в существующих представлениях используются классы вроде `navbar`, `btn`, `card`, `menu`, `bg-base-*`); сохраняйте единообразие с этими примитивами при добавлении нового интерфейса.
-- В `nuxt.config.ts` заданы `css: ["~/assets/app.css"]` и `compatibilityDate: "2025-07-15"`.
+- Tailwind CSS v4 через `@tailwindcss/vite` в `nuxt.config.ts` (без `tailwind.config.*`, без отдельного PostCSS для Tailwind). Вход: `app/assets/app.css` (`@import "tailwindcss";`, `@plugin "daisyui";`).
+- daisyUI v5: придерживаться существующих классов (`navbar`, `btn`, `card`, `menu`, `bg-base-*`).
+- `nuxt.config.ts`: `css: ["~/assets/app.css"]`, `compatibilityDate: "2025-07-15"`.
 
-## Дополнительная информация
-
-### Назначение
-- Вики и набор утилит для упрощения игры в Space Station 14 на сборке [Deep Station 14 (DeepLagoon)](https://github.com/SS14-Classic/deep-station-14).
-
-### Источники игровых данных
-- `Resources/` (корень репозитория) — локальная копия игровых ресурсов сборки: прототипы (`Prototypes/`), карты (`Maps/`), локализация (`Locale/`), текстуры и прочее. Директория добавлена в `.gitignore`.
-- Используйте `Resources/` как источник данных для инструментов сайта (корабли, сущности, рецепты и т. п.). Не путайте с `public/` — там лежат статические ассеты самого веб-приложения.
-
-### Страницы
-- **`/`** (`app/pages/index.vue`) — главная страница вики.
-- **`/vendo`** (`app/pages/vendo.vue`) — помощник по «скручиванию» оборудования с покупаемых шаттлов: вендоматы, фабрикаторы, генераторы щитов, БСС и другие объекты. Цель: помочь выбрать, с каких кораблей выгоднее снять нужное, минимизируя затраты. При расчёте должны учитываться стоимость шаттлов, процент возврата и потери от снятого оборудования, в том числе случаи, когда требуется несколько одинаковых объектов. Данные о кораблях и сущностях брать из `Resources/`.
-- **`/chem`** (`app/pages/chem.vue`) — помощник по варке химикатов: расчёт рецептов под объём доступной колбы и нужное количество, а также сохранение быстрых заметок/рецептов для повторения. Страница пока в зачаточном состоянии; при доработке ориентироваться на эту цель.
-- В `app/components/TopBar.vue` также есть ссылка на `/search`, но файл `app/pages/search.vue` сейчас отсутствует.
-
-### GitHub
-- После внесённых изменений делайте коммит.
+## Дополнительно
+- Назначение: вики и утилиты для SS14 (Deep Station 14 / DeepLagoon). См. ссылку в README/описании при необходимости.
+- Игровые данные: `Resources/` в корне (прототипы/карты/локализация/текстуры и т.д., в `.gitignore`). Источник данных для сайта (корабли/сущности/рецепты); не путать с `public/`.
+- Страницы: `/` (`app/pages/index.vue`), `/vendo` (`app/pages/vendo.vue`) — выбор выгодного снятия оборудования с покупных шаттлов (стоимость, возврат, потери, кратные объекты), данные из `Resources/`; `/chem` (`app/pages/chem.vue`) — расчёт рецептов под колбу/количество + заметки (в разработке). В `TopBar.vue` есть ссылка на `/search`, файла `app/pages/search.vue` нет.
+- Git: после изменений делать коммит.
