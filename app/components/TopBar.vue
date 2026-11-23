@@ -1,7 +1,7 @@
 <template>
   <div class="navbar bg-base-100 shadow-sm">
     <div class="flex-1">
-      <NuxtLink to="/" class="btn btn-ghost text-xl">DeepGoon Wiki</NuxtLink>
+      <NuxtLink to="/" class="btn btn-ghost text-xl">DeepLagoon-Utils</NuxtLink>
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal gap-1 px-1">

@@ -1,9 +1,10 @@
 {
-  "name": "deepgoon-wiki-wibed",
+  "name": "deeplagoon-utils",
   "type": "module",
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "build-all": "python3 scripts/build-chem-data.py && python3 scripts/build-vendo-data.py",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Проект
-- DeepGoon wiki (SS14 DeepLagoon): Nuxt 4 + Vue 3. Пакетный менеджер: Bun (`bun.lock`) — `bun install` / `bun run <script>`.
+- DeepLagoon-Utils (SS14 DeepLagoon): Nuxt 4 + Vue 3. Пакетный менеджер: Bun (`bun.lock`) — `bun install` / `bun run <script>`.
 
 ## Команды
 - `bun install` (в т.ч. `postinstall` → `nuxt prepare`)
