@@ -24,6 +24,7 @@ type GasReaction = {
   priority: number
   minTemp: number | null
   maxTemp: number | null
+  tempFromCode: boolean
   minEnergy: number
   reactants: Record<string, number>
   input: Record<string, number>
@@ -409,6 +410,9 @@ watch(savedItems, (value) => {
               <div class="flex flex-wrap gap-1.5 text-xs">
                 <span class="badge badge-outline badge-sm">приоритет {{ selectedReaction.priority }}</span>
                 <span class="badge badge-outline badge-sm">T: {{ tempCondition(selectedReaction) }}</span>
+                <span v-if="selectedReaction.tempFromCode" class="badge badge-ghost badge-sm" title="Ограничение по температуре задано в коде эффекта, а не в YAML">
+                  лимит из кода
+                </span>
                 <span class="badge badge-ghost badge-sm">{{ sourceLabel(selectedReaction.source) }}</span>
                 <span v-if="selectedReaction.minEnergy > 0" class="badge badge-ghost badge-sm">
                   энергия ≥ {{ fmtMol(selectedReaction.minEnergy) }}
@@ -619,7 +623,12 @@ watch(savedItems, (value) => {
               <p v-if="r.summary" class="text-xs text-base-content/60 leading-snug">{{ r.summary }}</p>
 
               <div class="flex flex-wrap gap-1.5 text-xs">
-                <span class="badge badge-outline badge-sm">T: {{ tempCondition(r) }}</span>
+                <span
+                  class="badge badge-outline badge-sm"
+                  :title="r.tempFromCode ? 'Лимит температуры задан в коде эффекта, а не в YAML' : undefined"
+                >
+                  T: {{ tempCondition(r) }}<template v-if="r.tempFromCode">*</template>
+                </span>
                 <span class="badge badge-ghost badge-sm">{{ sourceLabel(r.source) }}</span>
               </div>
 

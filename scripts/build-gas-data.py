@@ -117,9 +117,12 @@ REACTION_INFO: dict[str, dict] = {
         "summary": "BZ и фрезон при низкой температуре образуют хилиум.",
         "input": {"BZ": 1, "Frezon": 11},
         "output": {"Healium": 12},
+        # В yml температуры нет, ограничение зашито в код эффекта.
+        "codeMaxTemp": 293.15,
         "notes": [
-            "Пропорция 1 BZ : 11 фрезона даёт максимум при 23.15 K; эффективность = 23.15 / T, скорость ∝ T / 293.15.",
-            "При нагреве выход падает, при T выше 293.15 K реакция прекращается.",
+            "Реакция идёт только при T не выше 293.15 K (20 °C); в YAML лимита нет — он задан в коде эффекта.",
+            "За тик расходуется BZ·(T/293.15) и фрезона в 11 раз больше, а хилиума получается ~0.95 моль независимо от T.",
+            "Поэтому холод выгоден: при 23.15 K на 1 BZ + 11 фрезона приходится 12 хилиума, при 293.15 K — всего ~0.95.",
         ],
     },
     "N2ODecomposition": {
@@ -133,10 +136,13 @@ REACTION_INFO: dict[str, dict] = {
     },
     "NitriumDecomposition": {
         "title": "Разложение нитриума",
-        "summary": "Нитриум распадается на азот и водяной пар при температуре ниже 343 K.",
+        "summary": "Нитриум распадается на азот и водяной пар при температуре до 343.15 K.",
         "input": {"Nitrium": 1},
         "output": {"WaterVapor": 1, "Nitrogen": 1},
+        # В yml температуры нет, ограничение зашито в код эффекта (T0C + 70).
+        "codeMaxTemp": 343.15,
         "notes": [
+            "Реакция идёт только при T не выше 343.15 K (70 °C); в YAML лимита нет — он задан в коде эффекта.",
             "Кислород нужен как катализатор (порог 0.01 моль) и не расходуется.",
             "Скорость = T / 2984 за тик: на холоде реакция идёт очень медленно, при 343 K — быстрее всего.",
             "Реакция выделяет 30 кДж на моль.",
@@ -318,13 +324,17 @@ def load_gas_reactions() -> list[dict]:
             min_temp = entry.get("minimumTemperature")
             max_temp = entry.get("maximumTemperature")
             min_energy = entry.get("minimumEnergy")
+            # Часть ограничений по температуре задана не в YAML, а в коде эффекта.
+            min_candidates = [float(v) for v in (min_temp, meta.get("codeMinTemp")) if v is not None]
+            max_candidates = [float(v) for v in (max_temp, meta.get("codeMaxTemp")) if v is not None]
             reactions.append({
                 "id": rid,
                 "title": meta.get("title", rid),
                 "summary": meta.get("summary", ""),
                 "priority": entry.get("priority", 0),
-                "minTemp": float(min_temp) if min_temp is not None else None,
-                "maxTemp": float(max_temp) if max_temp is not None else None,
+                "minTemp": max(min_candidates) if min_candidates else None,
+                "maxTemp": min(max_candidates) if max_candidates else None,
+                "tempFromCode": bool(meta.get("codeMinTemp") or meta.get("codeMaxTemp")),
                 "minEnergy": float(min_energy) if min_energy is not None else 0.0,
                 "reactants": parse_requirements(entry.get("minimumRequirements")),
                 "input": meta.get("input", {}),
