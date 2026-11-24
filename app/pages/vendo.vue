@@ -1,4 +1,17 @@
 <script setup lang="ts">
+/**
+ * /vendo — «скручивание» покупных шаттлов для SS14 (DeepLagoon).
+ *
+ * Идея: игрок покупает шаттл, снимает нужные детали, а корпус продаёт на верфи.
+ * Выгода = цена покупки − возврат за корпус после снятия деталей, поэтому страница
+ * считает «чистые затраты» и подбирает шаттлы, где нужные детали есть.
+ *
+ * Данные: app/data/vendo.json (каталог деталей, шаттлы с составом и оценкой).
+ * Стоимость оценок считается по игровой формуле PricingSystem — см. пояснение в подвале.
+ *
+ * Порядок разделов: типы → данные/состояние → вспомогательные функции →
+ * расчёты (computed) → localStorage-хуки.
+ */
 import vendoData from '~/data/vendo.json'
 
 type CatalogItem = {
@@ -32,35 +45,49 @@ type CartEntry = {
   qty: number
 }
 
+/** Доля стоимости, которую верфь платит при продаже шаттла (по умолчанию 85%). */
 const SELL_RATE = typeof vendoData.sellRate === 'number' ? vendoData.sellRate : 0.85
 const catalog = vendoData.catalog as CatalogItem[]
+// В расчёт берём только реально покупаемые шаттлы с ненулевой ценой.
 const shuttles = (vendoData.shuttles as Shuttle[]).filter(s => s.purchasable && s.price > 0)
 
+// Индексы для быстрого доступа: деталь по id и «что лежит внутри шаттла» (id → количество).
 const catalogById = new Map(catalog.map(item => [item.id, item]))
 const shuttleItemMaps = new Map(shuttles.map(s => [s.id, new Map(s.items.map(i => [i.id, i.count]))]))
 
+/** Корзина деталей — что игрок хочет скрутить; сохраняется в localStorage. */
 const cart = ref<CartEntry[]>([])
+/** Поиск детали в каталоге для добавления в корзину. */
 const partQuery = ref('')
+/** Поиск/фильтр по шаттлам. */
 const shuttleQuery = ref('')
+/** Фильтр по консолям/группам шаттлов. */
 const selectedGroups = ref<string[]>([])
 const showOnlyMatches = ref(true)
 const sortMode = ref<'smart' | 'net' | 'buy' | 'coverage'>('smart')
 
+/** Ключ localStorage для корзины. */
 const CART_KEY = 'vendo:cart'
 
+/** Денежный формат: целые с разделителями тысяч, как в игре. */
 function fmt(n: number): string {
   return Math.round(n).toLocaleString('ru-RU')
 }
 
+/** Возврат за корпус при продаже: floor(оценка × ставка), отрицательные не бывают. */
 function sellReturn(appraisal: number): number {
   return Math.floor(Math.max(0, appraisal) * SELL_RATE)
 }
 
+/** Сколько единиц детали уже в корзине. */
 function cartQty(id: string): number {
   return cart.value.find(e => e.id === id)?.qty ?? 0
 }
 
+/* ------------------------------ Корзина ------------------------------ */
+
 function addToCart(id: string) {
+  // Принимаем только детали из каталога — защита от мусора в localStorage.
   if (!catalogById.has(id)) return
   const existing = cart.value.find(e => e.id === id)
   if (existing) existing.qty += 1
@@ -71,6 +98,7 @@ function removeFromCart(id: string) {
   cart.value = cart.value.filter(e => e.id !== id)
 }
 
+/** Ручная правка количества: нечисло/≤0 трактуем как удаление строки. */
 function setCartQty(id: string, qty: number) {
   const entry = cart.value.find(e => e.id === id)
   if (!entry) return
@@ -86,6 +114,7 @@ function clearCart() {
   cart.value = []
 }
 
+/** Поиск детали по RU/EN/id; ограничен 40 результатами, чтобы список не разрастался. */
 const partSearchResults = computed(() => {
   const q = partQuery.value.trim().toLowerCase()
   const base = q
@@ -97,6 +126,9 @@ const partSearchResults = computed(() => {
   return base.slice(0, 40)
 })
 
+/* --------------------------- Фильтры шаттлов -------------------------- */
+
+/** Уникальные группы (консоли) среди покупаемых шаттлов. */
 const groups = computed(() => {
   const set = new Set<string>()
   for (const s of shuttles) set.add(s.group || 'Unknown')
@@ -117,11 +149,16 @@ function clearGroups() {
   selectedGroups.value = []
 }
 
+/** Одна строка таблицы подбора: шаттл + посчитанные по нему деньги и покрытие корзины. */
 type ShuttleRow = {
   shuttle: Shuttle
+  /** Возврат за корпус «как есть». */
   baseReturn: number
+  /** Стоимость снятых деталей по каталогу. */
   removedValue: number
+  /** Возврат после снятия деталей (оценка уменьшается на их стоимость). */
   sellAfter: number
+  /** Чистые затраты: цена покупки − возврат после скрутки. */
   netCost: number
   matched: Array<{ id: string; name: string; want: number; have: number; take: number; unitPrice: number; totalPrice: number }>
   matchedCount: number
@@ -130,6 +167,14 @@ type ShuttleRow = {
   score: number
 }
 
+/**
+ * Главный расчёт: для каждого шаттла считаем, что из корзины на нём есть,
+ * сколько это стоит и во что обойдётся вся операция. Затем сортируем по режиму.
+ *
+ * score в «умном» режиме = штраф за непокрытые детали (до 1 000 000) + чистые
+ * затраты: сначала идут шаттлы, закрывающие корзину максимально полно, и лишь
+ * потом — более дешёвые.
+ */
 const shuttleRows = computed<ShuttleRow[]>(() => {
   const wanted = cart.value.filter(e => e.qty > 0 && catalogById.has(e.id))
   const wantedCount = wanted.reduce((a, e) => a + e.qty, 0)
@@ -150,6 +195,7 @@ const shuttleRows = computed<ShuttleRow[]>(() => {
     let removedValue = 0
     let matchedCount = 0
 
+    // Сверяем корзину с составом шаттла: берём минимум из «нужно» и «есть».
     for (const entry of wanted) {
       const have = itemMap?.get(entry.id) ?? 0
       if (have <= 0) continue
@@ -173,6 +219,7 @@ const shuttleRows = computed<ShuttleRow[]>(() => {
     if (showOnlyMatches.value && wanted.length > 0 && matched.length === 0) continue
 
     const baseReturn = sellReturn(shuttle.appraisal)
+    // Снимая детали, мы уменьшаем оценку корпуса — возврат падает.
     const sellAfter = sellReturn(shuttle.appraisal - removedValue)
     const netCost = shuttle.price - sellAfter
     const coverage = wantedCount > 0 ? matchedCount / wantedCount : 0
@@ -193,6 +240,7 @@ const shuttleRows = computed<ShuttleRow[]>(() => {
     })
   }
 
+  // Режимы сортировки; при равенстве основного критерия — вторичный.
   rows.sort((a, b) => {
     if (sortMode.value === 'net') return a.netCost - b.netCost || b.coverage - a.coverage
     if (sortMode.value === 'buy') return a.shuttle.price - b.shuttle.price || b.coverage - a.coverage
@@ -203,6 +251,7 @@ const shuttleRows = computed<ShuttleRow[]>(() => {
   return rows
 })
 
+/** Сводка для верхних счётчиков: сколько деталей в корзине и какой шаттл лучший. */
 const summary = computed(() => {
   const wanted = cart.value.filter(e => e.qty > 0)
   const wantedCount = wanted.reduce((a, e) => a + e.qty, 0)
@@ -215,6 +264,14 @@ const summary = computed(() => {
   }
 })
 
+/**
+ * «Умный план»: жадно набираем шаттлы, пока не закроем корзину.
+ *
+ * На каждом шаге среди ещё не купленных шаттлов выбираем лучший по
+ * «чистые затраты / сколько деталей закрывает» (ratio). Ничьи разрешаем в пользу
+ * большего покрытия и меньших затрат. Ограничение в 8 шаттлов — чтобы план
+ * оставался обозримым и не уходил в бесконечный перебор.
+ */
 const smartPlan = computed(() => {
   const wanted = new Map<string, number>()
   for (const e of cart.value) {
@@ -222,6 +279,7 @@ const smartPlan = computed(() => {
   }
   if (wanted.size === 0) return { picks: [] as Array<{ shuttle: Shuttle; take: Array<{ id: string; name: string; qty: number; unitPrice: number }>; netCost: number; sellAfter: number; removedValue: number }>, remaining: [] as Array<{ id: string; name: string; qty: number }>, totalNet: 0 }
 
+  // remaining — сколько ещё нужно докупить по каждой детали.
   const remaining = new Map(wanted)
   const picks: Array<{ shuttle: Shuttle; take: Array<{ id: string; name: string; qty: number; unitPrice: number }>; netCost: number; sellAfter: number; removedValue: number }> = []
   const usedShuttles = new Set<string>()
@@ -236,6 +294,7 @@ const smartPlan = computed(() => {
       const take: Array<{ id: string; name: string; qty: number; unitPrice: number }> = []
       let removedValue = 0
       let gain = 0
+      // Считаем, что этот шаттл закроет из оставшихся потребностей.
       for (const [id, need] of remaining) {
         const have = itemMap.get(id) ?? 0
         if (have <= 0) continue
@@ -253,6 +312,7 @@ const smartPlan = computed(() => {
         best = { shuttle, take, netCost, sellAfter, removedValue, gain }
         continue
       }
+      // Сравнение с эпсилоном, чтобы float-погрешность не ломала «ничью».
       const bestRatio = best.netCost / best.gain
       const ratio = netCost / gain
       if (ratio < bestRatio - 1e-9 || (Math.abs(ratio - bestRatio) < 1e-9 && (gain > best.gain || (gain === best.gain && netCost < best.netCost)))) {
@@ -263,6 +323,7 @@ const smartPlan = computed(() => {
     if (!best) break
     picks.push({ shuttle: best.shuttle, take: best.take, netCost: best.netCost, sellAfter: best.sellAfter, removedValue: best.removedValue })
     usedShuttles.add(best.shuttle.id)
+    // Вычитаем из remaining всё, что закрыл выбранный шаттл.
     for (const t of best.take) {
       const left = (remaining.get(t.id) ?? 0) - t.qty
       if (left <= 0) remaining.delete(t.id)
@@ -276,6 +337,9 @@ const smartPlan = computed(() => {
   return { picks, remaining: remainingList, totalNet }
 })
 
+/* ---------------------------- localStorage ---------------------------- */
+
+// Восстанавливаем корзину после перезагрузки, отбрасывая битые/неизвестные записи.
 onMounted(() => {
   if (!import.meta.client) return
   try {
@@ -289,6 +353,7 @@ onMounted(() => {
   } catch { /* ignore */ }
 })
 
+// Каждое изменение корзины (включая правку количества) сразу пишем в localStorage.
 watch(cart, (val) => {
   if (!import.meta.client) return
   try { localStorage.setItem(CART_KEY, JSON.stringify(val)) } catch { /* ignore */ }
@@ -296,6 +361,7 @@ watch(cart, (val) => {
 </script>
 
 <template>
+  <!-- Шапка: заголовок и счётчики данных (шаттлы/детали/ставка возврата). -->
   <div class="space-y-4">
     <header class="flex flex-wrap items-end gap-3 px-1">
       <div>
@@ -307,6 +373,7 @@ watch(cart, (val) => {
 
     <div class="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_24rem]">
       <section class="min-w-0 space-y-4">
+        <!-- Основная карточка: фильтры, счётчики, умный план и таблица шаттлов. -->
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body gap-4">
             <div class="flex flex-wrap items-center gap-2">
@@ -315,6 +382,7 @@ watch(cart, (val) => {
                 <label class="input input-sm w-56">
                   <input v-model="shuttleQuery" type="search" placeholder="Поиск шаттла..." />
                 </label>
+                <!-- Выпадающий фильтр по консолям: чекбоксы уходят в selectedGroups. -->
                 <details class="dropdown dropdown-end">
                   <summary class="btn btn-sm btn-outline m-0">
                     Консоли{{ selectedGroups.length ? ` (${selectedGroups.length})` : ': все' }}
@@ -393,6 +461,7 @@ watch(cart, (val) => {
             </div>
 
             <div class="overflow-x-auto">
+              <!-- Таблица подбора: первые 80 строк, отсортированные по выбранному режиму. -->
               <table class="table table-sm">
                 <thead>
                   <tr>
@@ -441,6 +510,7 @@ watch(cart, (val) => {
       </section>
 
       <aside class="space-y-4 xl:sticky xl:top-4">
+        <!-- Правая панель: поиск деталей и редактирование корзины. -->
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body gap-3">
             <div class="flex items-center gap-2">

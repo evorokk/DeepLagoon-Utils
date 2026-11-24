@@ -2,9 +2,18 @@
 /**
  * /gasmix — справочник газовых реакций (Atmospherics) для SS14 (DeepLagoon).
  * Показывает требования, стехиометрию (вход/выход в молях и процентах) и условия.
+ *
+ * Данные: app/data/gas.json (газы + реакции), собирается scripts/build-gas-data.py
+ * из прототипов Resources/. Страница только читает данные и группирует их.
+ *
+ * Два независимых сценария выбора:
+ *  - выбран газ → показываем реакции, где он реагент или продукт;
+ *  - выбрана реакция → показываем её стехиометрию, пороги и эффекты.
+ * Одновременно активен только один из них (см. selectGas/selectReaction).
  */
 import gasData from '~/data/gas.json'
 
+/** Справочник газов: id, англ./рус. названия и цвет для точки-индикатора. */
 type GasInfo = {
   id: string
   name: string
@@ -12,11 +21,13 @@ type GasInfo = {
   color: string | null
 }
 
+/** Дополнительный вариант выхода (реакция может давать разный продукт при разных условиях). */
 type GasOutputVariant = {
   label: string
   output: Record<string, number>
 }
 
+/** Одна газовая реакция. Суммы даны в молях; reactants — порог запуска в смеси. */
 type GasReaction = {
   id: string
   title: string
@@ -46,10 +57,15 @@ const reactions = payload.reactions
 
 const gasById = new Map(gases.map((g) => [g.id, g]))
 
+/* ------------------------------- Состояние ------------------------------- */
+// Пустая строка = «ничего не выбрано»; состояния газа и реакции взаимоисключающие.
 const query = ref('')
 const selectedGasId = ref<string>('')
 const selectedReactionId = ref<string>('')
 
+/* --------------------------- Названия и формат --------------------------- */
+
+/** RU/EN названия газа с фолбэком на id, если газа нет в справочнике. */
 function gasNames(id: string): { ru: string; en: string } {
   const gas = gasById.get(id)
   if (gas) return { ru: gas.nameRu, en: gas.name }
@@ -60,15 +76,18 @@ function gasDisplayName(id: string): string {
   return gasNames(id).ru
 }
 
+/** Цвет точки-индикатора газа; null → в шаблоне рисуется пунктирный кружок. */
 function gasColor(id: string): string | null {
   return gasById.get(id)?.color ?? null
 }
 
+/** Температура: до 2 знаков, лишние нули убираем, null → прочерк. */
 function fmtTemp(v: number | null): string {
   if (v === null || v === undefined) return '—'
   return `${Number(v).toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1')} K`
 }
 
+/** Моли: компактный вывод — крупные до 1 знака, мелкие до 3 без хвостовых нулей. */
 function fmtMol(v: number): string {
   if (!Number.isFinite(v)) return '—'
   if (v === 0) return '0'
@@ -76,10 +95,12 @@ function fmtMol(v: number): string {
   return Number(v.toFixed(3)).toString()
 }
 
+/** Сумма всех газов в смеси — база для процентов. */
 function totalMoles(mix: Record<string, number>): number {
   return Object.values(mix).reduce((sum, v) => sum + v, 0)
 }
 
+/** Доля компонента в смеси в процентах (с разной точностью для больших/малых долей). */
 function share(part: number, total: number): string {
   if (!total) return '—'
   const percent = (part / total) * 100
@@ -87,6 +108,7 @@ function share(part: number, total: number): string {
   return `${rounded}%`
 }
 
+/** Человекочитаемое температурное условие реакции. */
 function tempCondition(r: GasReaction): string {
   if (r.minTemp !== null && r.maxTemp !== null) return `${fmtTemp(r.minTemp)} … ${fmtTemp(r.maxTemp)}`
   if (r.minTemp !== null) return `≥ ${fmtTemp(r.minTemp)}`
@@ -94,17 +116,22 @@ function tempCondition(r: GasReaction): string {
   return 'любая'
 }
 
+/** Газ есть среди продуктов — в том числе в одном из вариантов выхода. */
 function hasOutputGas(r: GasReaction, gasId: string): boolean {
   if (gasId in r.output) return true
   return r.outputVariants.some((v) => gasId in v.output)
 }
 
+/** Подпись источника реакции (группа из данных). */
 function sourceLabel(src: string): string {
   if (src === 'atmospherics') return 'Atmospherics'
   if (src === 'funky') return 'Funkystation / tg'
   return src
 }
 
+/* -------------------------------- Расчёты -------------------------------- */
+
+/** Поиск по реакциям: id, заголовок, описание, источник, заметки и газы входа/выхода. */
 const filteredReactions = computed(() => {
   const q = query.value.trim().toLowerCase()
   if (!q) return reactions
@@ -127,6 +154,7 @@ const filteredReactions = computed(() => {
   })
 })
 
+/** Группировка отфильтрованных реакций по источнику; Atmospherics всегда первой. */
 const groupedAll = computed(() => {
   const map = new Map<string, GasReaction[]>()
   for (const r of filteredReactions.value) {
@@ -139,7 +167,10 @@ const groupedAll = computed(() => {
   return order.filter((k) => map.has(k)).map((k) => ({ key: k, label: sourceLabel(k), items: map.get(k)! }))
 })
 
-// Reactions that involve selected gas (as reactant and/or product)
+/**
+ * Реакции, где выбранный газ встречается как реагент и/или продукт.
+ * Роли показываются бейджами; реакции без ролей отбрасываются.
+ */
 const reactionsForSelectedGas = computed(() => {
   if (!selectedGasId.value) return []
   const gasId = selectedGasId.value
@@ -153,10 +184,14 @@ const reactionsForSelectedGas = computed(() => {
     .filter((entry) => entry.roles.length > 0)
 })
 
+/** Реакция по id для блока деталей (null, если ничего не выбрано). */
 const selectedReaction = computed(() => {
   if (!selectedReactionId.value) return null
   return reactions.find((r) => r.id === selectedReactionId.value) ?? null
 })
+
+/* ------------------------- Взаимоисключающий выбор ------------------------ */
+// Выбор газа и выбор реакции сбрасывают друг друга — экран показывает один сценарий.
 
 function selectGas(id: string) {
   selectedGasId.value = id
@@ -175,6 +210,7 @@ function clearSelection() {
 </script>
 
 <template>
+  <!-- Шапка со счётчиками из данных. -->
   <div class="space-y-5">
     <header class="flex flex-wrap items-center gap-x-3 gap-y-1 px-1">
       <h1 class="text-xl font-bold leading-tight">Газовые реакции</h1>
@@ -188,6 +224,7 @@ function clearSelection() {
 
     <div class="grid items-start gap-5">
       <section class="min-w-0 space-y-5">
+        <!-- Карточка выбора газа/реакции и деталей по выбору. -->
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body gap-5">
             <div class="flex flex-wrap items-start justify-between gap-3">
@@ -229,7 +266,7 @@ function clearSelection() {
               </label>
             </div>
 
-            <!-- Details for selected gas -->
+            <!-- Детали по выбранному газу: список реакций с ним и роли (реагент/продукт). -->
             <div v-if="selectedGasId" class="rounded-box border border-base-300 p-4 space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <h3 class="text-sm font-semibold flex items-center gap-2">
@@ -302,7 +339,7 @@ function clearSelection() {
               </div>
             </div>
 
-            <!-- Details for selected reaction -->
+            <!-- Детали по выбранной реакции: сводка, стехиометрия, пороги, заметки, эффекты. -->
             <div v-if="selectedReaction" class="rounded-box border border-base-300 p-4 space-y-4">
               <div class="flex items-start justify-between gap-2">
                 <div>
@@ -325,7 +362,7 @@ function clearSelection() {
                 </span>
               </div>
 
-              <!-- Stoichiometry: input / output with mole shares -->
+              <!-- Стехиометрия: вход и выход в молях, с долей каждого газа в смеси. -->
               <div class="rounded-box bg-base-200/50 p-3 space-y-3">
                 <div>
                   <p class="mb-1.5 text-xs uppercase tracking-[0.12em] text-base-content/50">
@@ -446,7 +483,7 @@ function clearSelection() {
       </section>
     </div>
 
-    <!-- All reactions below -->
+    <!-- Полный список реакций, сгруппированный по источнику, с поиском. -->
     <section class="space-y-3">
       <div class="flex items-center justify-between gap-2">
         <h2 class="text-lg font-semibold tracking-tight">Все реакции</h2>

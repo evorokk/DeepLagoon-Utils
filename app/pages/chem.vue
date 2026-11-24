@@ -262,6 +262,7 @@ function ceilToStep(value: number, step: number): number {
   return Math.ceil((value - 1e-9) / normalized) * normalized
 }
 
+// Защита от пустого/битого ввода: в расчёты всегда уходят положительные числа.
 const flask = computed(() => positiveOr(flaskVolume.value, 100))
 const target = computed(() => positiveOr(targetVolume.value, 30))
 
@@ -306,18 +307,22 @@ const selectedReagent = computed(() => (selectedId.value ? reagentById.get(selec
 const selectedName = computed(() => (selectedId.value ? getReagentNames(selectedId.value).ru : ''))
 const selectedNameEn = computed(() => (selectedId.value ? getReagentNames(selectedId.value).en : ''))
 
+/** Рецепты, которые производят выбранный реагент (до фильтра по группе). */
 const producedBy = computed(() => {
   if (!selectedId.value) return []
   return reactionsByProduct.value.get(selectedId.value) ?? []
 })
 
+/** Те же рецепты, но уже отфильтрованные по выбранной группе. */
 const visibleReactions = computed(() => {
   if (groupFilter.value === 'all') return producedBy.value
   return producedBy.value.filter(reaction => reaction.group === groupFilter.value)
 })
 
+/** Ситуация «реагент варится, но не в выбранной группе» — показываем предупреждение. */
 const filteredOut = computed(() => producedBy.value.length > 0 && visibleReactions.value.length === 0)
 
+/** Требования реакции в виде человекочитаемых бейджей (температура, оборудование). */
 function requirementLabels(reaction: Reaction): string[] {
   const labels: string[] = []
   if (reaction.minTemp !== null && reaction.maxTemp !== null) {
