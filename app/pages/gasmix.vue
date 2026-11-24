@@ -40,26 +40,15 @@ type GasPayload = {
   reactions: GasReaction[]
 }
 
-type SavedGasItem = {
-  key: string
-  kind: 'gas' | 'reaction'
-  id: string
-}
-
 const payload = gasData as GasPayload
 const gases = payload.gases
 const reactions = payload.reactions
 
 const gasById = new Map(gases.map((g) => [g.id, g]))
-const reactionById = new Map(reactions.map((r) => [r.id, r]))
 
 const query = ref('')
 const selectedGasId = ref<string>('')
 const selectedReactionId = ref<string>('')
-
-const SAVED_STORAGE_KEY = 'gasmix:saved'
-const savedItems = ref<SavedGasItem[]>([])
-const savedOpen = ref<Set<string>>(new Set())
 
 function gasNames(id: string): { ru: string; en: string } {
   const gas = gasById.get(id)
@@ -108,10 +97,6 @@ function tempCondition(r: GasReaction): string {
 function hasOutputGas(r: GasReaction, gasId: string): boolean {
   if (gasId in r.output) return true
   return r.outputVariants.some((v) => gasId in v.output)
-}
-
-function reactionTitle(id: string): string {
-  return reactionById.get(id)?.title ?? id
 }
 
 function sourceLabel(src: string): string {
@@ -187,71 +172,6 @@ function clearSelection() {
   selectedGasId.value = ''
   selectedReactionId.value = ''
 }
-
-function isSaved(kind: 'gas' | 'reaction', id: string): boolean {
-  return savedItems.value.some((s) => s.kind === kind && s.id === id)
-}
-
-function toggleSave(kind: 'gas' | 'reaction', id: string) {
-  if (isSaved(kind, id)) {
-    savedItems.value = savedItems.value.filter((s) => !(s.kind === kind && s.id === id))
-  } else {
-    savedItems.value = [
-      ...savedItems.value,
-      { key: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`, kind, id },
-    ]
-  }
-}
-
-function removeSaved(key: string) {
-  savedItems.value = savedItems.value.filter((s) => s.key !== key)
-  const next = new Set(savedOpen.value)
-  next.delete(key)
-  savedOpen.value = next
-}
-
-function toggleSavedOpen(key: string) {
-  const next = new Set(savedOpen.value)
-  if (next.has(key)) next.delete(key)
-  else next.add(key)
-  savedOpen.value = next
-}
-
-function loadSaved(item: SavedGasItem) {
-  if (item.kind === 'gas') {
-    selectedGasId.value = item.id
-    selectedReactionId.value = ''
-  } else {
-    selectedReactionId.value = item.id
-    selectedGasId.value = ''
-  }
-}
-
-onMounted(() => {
-  if (!import.meta.client) return
-  try {
-    const stored = localStorage.getItem(SAVED_STORAGE_KEY)
-    if (!stored) return
-    const parsed: unknown = JSON.parse(stored)
-    if (!Array.isArray(parsed)) return
-    savedItems.value = parsed.filter((item): item is SavedGasItem => {
-      if (typeof item !== 'object' || item === null) return false
-      const it = item as SavedGasItem
-      return typeof it.key === 'string' && (it.kind === 'gas' || it.kind === 'reaction') && typeof it.id === 'string'
-    })
-  } catch {
-    // ignore
-  }
-})
-
-watch(savedItems, (value) => {
-  if (!import.meta.client) return
-  try {
-    localStorage.setItem(SAVED_STORAGE_KEY, JSON.stringify(value))
-  } catch {
-    // ignore
-  }
-}, { deep: true })
 </script>
 
 <template>
@@ -266,7 +186,7 @@ watch(savedItems, (value) => {
       </p>
     </header>
 
-    <div class="grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_21rem]">
+    <div class="grid items-start gap-5">
       <section class="min-w-0 space-y-5">
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body gap-5">
@@ -321,13 +241,6 @@ watch(savedItems, (value) => {
                   <span class="text-xs font-normal opacity-60">{{ gasNames(selectedGasId).en }}</span>
                   <span class="font-mono text-xs opacity-60">{{ selectedGasId }}</span>
                 </h3>
-                <button
-                  class="btn btn-xs"
-                  :class="isSaved('gas', selectedGasId) ? 'btn-ghost' : 'btn-primary btn-soft'"
-                  @click="toggleSave('gas', selectedGasId)"
-                >
-                  {{ isSaved('gas', selectedGasId) ? 'Сохранено' : 'Сохранить' }}
-                </button>
               </div>
 
               <div>
@@ -396,13 +309,6 @@ watch(savedItems, (value) => {
                   <h3 class="text-sm font-semibold">{{ selectedReaction.title }}</h3>
                   <p class="font-mono text-[11px] opacity-50">{{ selectedReaction.id }}</p>
                 </div>
-                <button
-                  class="btn btn-xs shrink-0"
-                  :class="isSaved('reaction', selectedReaction.id) ? 'btn-ghost' : 'btn-primary btn-soft'"
-                  @click="toggleSave('reaction', selectedReaction.id)"
-                >
-                  {{ isSaved('reaction', selectedReaction.id) ? 'Сохранено' : 'Сохранить' }}
-                </button>
               </div>
 
               <p v-if="selectedReaction.summary" class="text-sm opacity-75">{{ selectedReaction.summary }}</p>
@@ -538,51 +444,6 @@ watch(savedItems, (value) => {
           </div>
         </div>
       </section>
-
-      <!-- Saved aside -->
-      <aside class="space-y-3 xl:sticky xl:top-4">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body gap-3">
-            <div class="flex items-center justify-between gap-2">
-              <h2 class="card-title text-base">Сохранённые</h2>
-              <span class="badge badge-ghost badge-sm tabular-nums">{{ savedItems.length }}</span>
-            </div>
-
-            <div v-if="savedItems.length === 0" class="text-xs opacity-60">
-              Сохраняйте газ или реакцию кнопкой «Сохранить».
-            </div>
-
-            <div v-else class="space-y-2">
-              <div v-for="s in savedItems" :key="s.key" class="rounded-box border border-base-300 p-2">
-                <div class="flex items-center gap-2">
-                  <button
-                    class="btn btn-ghost btn-xs btn-square"
-                    @click="toggleSavedOpen(s.key)"
-                    :aria-expanded="savedOpen.has(s.key)"
-                  >
-                    <svg viewBox="0 0 16 16" fill="none" class="size-3 transition-transform" :class="savedOpen.has(s.key) ? 'rotate-180' : ''">
-                      <path d="M4 6.5L8 10.5L12 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </button>
-                  <button class="min-w-0 flex-1 text-left text-sm font-medium truncate" @click="loadSaved(s)">
-                    <span v-if="s.kind === 'gas'">{{ gasNames(s.id).ru }} <span class="text-[10px] opacity-60">{{ gasNames(s.id).en }}</span></span>
-                    <span v-else>{{ reactionTitle(s.id) }}</span>
-                  </button>
-                  <button class="btn btn-ghost btn-xs btn-square" @click="removeSaved(s.key)" title="Удалить">
-                    <svg viewBox="0 0 16 16" fill="none" class="size-3.5">
-                      <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-                    </svg>
-                  </button>
-                </div>
-                <div v-if="savedOpen.has(s.key)" class="mt-2 text-xs opacity-70 pl-8">
-                  <span class="badge badge-ghost badge-xs">{{ s.kind === 'gas' ? 'Газ' : 'Реакция' }}</span>
-                  <span class="ml-1 font-mono">{{ s.id }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
     </div>
 
     <!-- All reactions below -->

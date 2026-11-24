@@ -1,32 +1,47 @@
-# Nuxt Minimal Starter
+# DeepLagoon-Utils
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Веб-инструменты и справочные материалы для [Space Station 14](https://spacestation14.com/) (сборка DeepLagoon). Сайт собирает игровые данные из прототипов и превращает их в удобные калькуляторы и таблицы.
 
-## Setup
+## Что умеет
 
-Make sure to install dependencies:
+- **Химия** (`/chem`) — расчёт рецептов: партии, выход, шаг перелива, дерево подрецептов и заметки.
+- **Газы** (`/gasmix`) — справочник атмосферных реакций: вход и выход в молях и процентах, условия запуска, эффекты.
+- **Оборудование** (`/vendo`) — выбор выгодного снятия оборудования с покупных шаттлов: стоимость, возврат, потери, кратные объекты.
+
+## Стек
+
+- [Nuxt 4](https://nuxt.com/) + Vue 3, корень приложения — `app/`
+- [Tailwind CSS v4](https://tailwindcss.com/) + [daisyUI v5](https://daisyui.com/)
+- Пакетный менеджер — [Bun](https://bun.sh/) (`bun.lock`)
+- Python 3 + `PyYAML` для сборки данных
+
+## Установка и запуск
 
 ```bash
-# npm
-npm install
+bun install        # также выполняет nuxt prepare
+bun run dev        # http://localhost:3000
+```
 
-# pnpm
-pnpm install
+Сборка и локальный просмотр:
 
-# yarn
-yarn install
+```bash
+bun run build
+bun run preview
+```
 
-# bun
-bun install
+Статическая генерация:
+
+```bash
+bun run generate
 ```
 
 ## Подготовка данных
 
-Проект использует игровые данные SS14 (прототипы, карты, локализация). Перед генерацией данных скопируйте каталог `Resources` из билда станции/игры в корень репозитория:
+Игровые данные в репозиторий не входят. Скопируйте каталог `Resources` из билда станции в корень проекта:
 
 ```text
 DeepLagoon-Utils/
-├── Resources/          # из билда станции
+├── Resources/        # прототипы, карты, локализация, текстуры
 │   ├── Prototypes/
 │   ├── Locale/
 │   ├── Maps/
@@ -35,69 +50,37 @@ DeepLagoon-Utils/
 └── ...
 ```
 
-Затем сгенерируйте JSON-данные, которые использует сайт:
+Затем сгенерируйте JSON, который использует сайт:
 
 ```bash
-# все данные сразу
-bash scripts/build-all.sh
-
-# или по отдельности
-python3 scripts/build-chem-data.py   # app/data/chem.json для /chem
-python3 scripts/build-vendo-data.py  # app/data/vendo.json для /vendo
+bash scripts/build-all.sh            # всё сразу
 ```
 
-> Для скриптов нужен Python 3 с пакетом `PyYAML`.
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Или по отдельности:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+python3 scripts/build-chem-data.py   # app/data/chem.json      → /chem
+python3 scripts/build-gas-data.py    # app/data/gas.json       → /gasmix
+python3 scripts/build-vendo-data.py  # app/data/vendo.json     → /vendo
 ```
 
-## Production
+Требования для скриптов: Python 3 и пакет `PyYAML`.
 
-Build the application for production:
+## Структура проекта
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+```text
+app/
+├── app.vue              # оболочка приложения
+├── pages/               # маршруты: index, chem, gasmix, vendo
+├── components/          # UI, включая TopBar с навигацией
+├── data/                # сгенерированный JSON
+└── assets/app.css       # Tailwind + daisyUI
+scripts/                 # генераторы данных из Resources/
+public/                  # статика (favicon, robots.txt)
 ```
 
-Locally preview production build:
+Новая страница — файл `app/pages/<name>.vue`. Если она основная, добавьте ссылку в `app/components/TopBar.vue`.
 
-```bash
-# npm
-npm run preview
+## Лицензия
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Материалы проекта предназначены для сообщества DeepLagoon. Игровые данные принадлежат их правообладателям (Space Station 14 / DeepLagoon).
