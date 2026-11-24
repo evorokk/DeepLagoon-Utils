@@ -45,7 +45,7 @@ type CartEntry = {
   qty: number
 }
 
-/** Доля стоимости, которую верфь платит при продаже шаттла (по умолчанию 85%). */
+/** Доля изначальной стоимости шаттла, которую верфь возвращает при продаже (по умолчанию 85%). */
 const SELL_RATE = typeof vendoData.sellRate === 'number' ? vendoData.sellRate : 0.85
 const catalog = vendoData.catalog as CatalogItem[]
 // В расчёт берём только реально покупаемые шаттлы с ненулевой ценой.
@@ -74,9 +74,9 @@ function fmt(n: number): string {
   return Math.round(n).toLocaleString('ru-RU')
 }
 
-/** Возврат за корпус при продаже: floor(оценка × ставка), отрицательные не бывают. */
-function sellReturn(appraisal: number): number {
-  return Math.floor(Math.max(0, appraisal) * SELL_RATE)
+/** Возврат за корпус при продаже: floor(стоимость × ставка), отрицательные не бывают. */
+function sellReturn(baseValue: number): number {
+  return Math.floor(Math.max(0, baseValue) * SELL_RATE)
 }
 
 /** Сколько единиц детали уже в корзине. */
@@ -218,9 +218,9 @@ const shuttleRows = computed<ShuttleRow[]>(() => {
 
     if (showOnlyMatches.value && wanted.length > 0 && matched.length === 0) continue
 
-    const baseReturn = sellReturn(shuttle.appraisal)
-    // Снимая детали, мы уменьшаем оценку корпуса — возврат падает.
-    const sellAfter = sellReturn(shuttle.appraisal - removedValue)
+    const baseReturn = sellReturn(shuttle.price)
+    // Снимая детали, мы уменьшаем стоимость корпуса — возврат падает.
+    const sellAfter = sellReturn(shuttle.price - removedValue)
     const netCost = shuttle.price - sellAfter
     const coverage = wantedCount > 0 ? matchedCount / wantedCount : 0
     const coveragePenalty = wantedCount > 0 ? (1 - coverage) * 1_000_000 : 0
@@ -306,7 +306,7 @@ const smartPlan = computed(() => {
         gain += qty
       }
       if (gain <= 0) continue
-      const sellAfter = sellReturn(shuttle.appraisal - removedValue)
+      const sellAfter = sellReturn(shuttle.price - removedValue)
       const netCost = shuttle.price - sellAfter
       if (!best) {
         best = { shuttle, take, netCost, sellAfter, removedValue, gain }
@@ -503,7 +503,7 @@ watch(cart, (val) => {
             </div>
 
             <p class="text-[11px] opacity-50">
-              Возврат считается как <code>floor(оценка_шаттла × {{ SELL_RATE }})</code> — как в игре (базовая ставка верфи, без налогов консоли). Оценка считается по игровой формуле PricingSystem (StaticPrice/Material/Stack/Solution), для машин без прямой цены — по составу платы (MachineBoard). «Чистые затраты» = покупка − возврат после скрутки.
+              Возврат — это 85% изначальной стоимости шаттла: <code>floor(стоимость × {{ SELL_RATE }})</code>, где стоимость — цена покупки; после скрутки из неё вычитается цена снятых деталей. Ставка верфи, без налогов консоли. Цены деталей считаются по игровой формуле PricingSystem (StaticPrice/Material/Stack/Solution), для машин без прямой цены — по составу платы (MachineBoard). «Чистые затраты» = покупка − возврат после скрутки.
             </p>
           </div>
         </div>
