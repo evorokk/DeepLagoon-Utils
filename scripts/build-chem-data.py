@@ -36,8 +36,10 @@ ROOT = Path(__file__).resolve().parent.parent
 PROTOTYPES_DIR = ROOT / "Resources" / "Prototypes"
 REACTION_GLOBS = ("**/Recipes/Reactions/**/*.yml", "**/Recipes/Reactions/**/*.yaml")
 REAGENT_GLOBS = ("**/Reagents/**/*.yml", "**/Reagents/**/*.yaml")
-LOCALE_DIR = ROOT / "Resources" / "Locale" / "en-US"
+LOCALE_EN_DIR = ROOT / "Resources" / "Locale" / "en-US"
+LOCALE_RU_DIR = ROOT / "Resources" / "Locale" / "ru-RU"
 OUT = ROOT / "app" / "data" / "chem.json"
+NAMES_OUT = ROOT / "app" / "data" / "reagent-names.json"
 
 
 def kebab(prototype_id: str) -> str:
@@ -64,11 +66,11 @@ def resolve_name(names: dict[str, str], prototype_id: str) -> str:
     return prototype_id
 
 
-def load_names() -> dict[str, str]:
+def load_names(locale_dir: Path) -> dict[str, str]:
     names: dict[str, str] = {}
-    if not LOCALE_DIR.exists():
+    if not locale_dir.exists():
         return names
-    for path in sorted(LOCALE_DIR.rglob("*.ftl")):
+    for path in sorted(locale_dir.rglob("*.ftl")):
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
         except OSError as exc:
@@ -196,9 +198,10 @@ def load_reactions(names: dict[str, str]) -> list[dict]:
 
 
 def main() -> None:
-    names = load_names()
-    reagents = load_reagents(names)
-    reactions = load_reactions(names)
+    en_names = load_names(LOCALE_EN_DIR)
+    ru_names = load_names(LOCALE_RU_DIR)
+    reagents = load_reagents(en_names)
+    reactions = load_reactions(en_names)
 
     # Названия продуктов/реагентов, не описанных как прототип реагента.
     missing = {
@@ -208,7 +211,7 @@ def main() -> None:
         if rid not in reagents
     }
     for rid in sorted(missing):
-        reagents[rid] = {"id": rid, "name": resolve_name(names, rid), "color": None}
+        reagents[rid] = {"id": rid, "name": resolve_name(en_names, rid), "color": None}
 
     payload = {
         "reagents": sorted(reagents.values(), key=lambda r: r["name"].lower()),
@@ -219,7 +222,42 @@ def main() -> None:
         json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
-    print(f"{OUT.relative_to(ROOT)}: {len(payload['reagents'])} реагентов, {len(reactions)} реакций")
+
+    existing_names: dict[str, dict[str, str]] = {}
+    if NAMES_OUT.exists():
+        try:
+            loaded = json.loads(NAMES_OUT.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                for rid, value in loaded.items():
+                    if isinstance(rid, str) and isinstance(value, dict):
+                        en_name = value.get("en")
+                        ru_name = value.get("ru")
+                        if isinstance(en_name, str) and isinstance(ru_name, str):
+                            existing_names[rid] = {"en": en_name, "ru": ru_name}
+        except Exception as exc:  # noqa: BLE001 - preserve build robustness
+            print(f"warn: cannot read {NAMES_OUT.relative_to(ROOT)}: {exc}", file=sys.stderr)
+
+    reagent_names: dict[str, dict[str, str]] = dict(existing_names)
+    for reagent in payload["reagents"]:
+        rid = reagent["id"]
+        en_name = resolve_name(en_names, rid)
+        ru_name = resolve_name(ru_names, rid)
+        if ru_name == rid and en_name != rid:
+            ru_name = en_name
+        reagent_names[rid] = {"en": en_name, "ru": ru_name}
+
+    reagent_names = dict(sorted(reagent_names.items(), key=lambda item: item[0].lower()))
+
+    NAMES_OUT.parent.mkdir(parents=True, exist_ok=True)
+    NAMES_OUT.write_text(
+        json.dumps(reagent_names, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    print(
+        f"{OUT.relative_to(ROOT)}: {len(payload['reagents'])} реагентов, {len(reactions)} реакций"
+    )
+    print(f"{NAMES_OUT.relative_to(ROOT)}: {len(reagent_names)} названий")
 
 
 if __name__ == "__main__":
